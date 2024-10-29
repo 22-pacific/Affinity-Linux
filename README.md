@@ -17,4 +17,4 @@ This guide helps Installing and running Affinity apps on linux as very usable st
 ____________________________________________________________________________________________
 *if you already have installed affinity apps by following Wanesty's guide, you can refere to
 
-## [Opencl on Nvidia](https://github.com/22-pacific/Affinity-Linux/blob/main/improvements%20for%20wanesty's%20guide%20installation.md)
+## [Opencl on Nvidia](https://github.com/22-pacific/Affinity-Linux/blob/main/Opencl%20on%20Nvidia.md)
