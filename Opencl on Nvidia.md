@@ -1,8 +1,3 @@
-# Exporting fix
-```
-rum affinity-photo3-wine9.13-part3 $HOME/.wineAffinity winetricks --unattended vcrun2015
-```
-
 # Opencl on Nvidia
 If you have Nvidia GPU, you can enable opencl (hardware accelaration) by following below steps
 
