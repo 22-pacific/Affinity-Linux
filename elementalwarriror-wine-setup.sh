@@ -53,7 +53,7 @@ download_file() {
 main() {
     # Configuration
     local directory="$HOME/.AffinityLinux"
-    local repo="22Pacific/ElementalWarrior-wine-binaries"
+    local repo="22-pacific/ElementalWarrior-wine-binaries"
     local filename="ElementalWarriorWine.zip"
 
     # Check dependencies
