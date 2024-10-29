@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Set strict mode
 set -euo pipefail
 
@@ -8,9 +7,9 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
 }
 
-# Function to check dependencies
-check_dependencies() {
-    local deps=("wine" "winetricks" "wget" "curl" "7z" "tar" "unzip" "jq")
+# Function to install missing dependencies based on detected package manager
+install_dependencies() {
+    local deps=("wine" "wine-gecko" "wine-mono" "winetricks" "wget" "curl" "7z" "tar" "unzip" "jq")
     local missing_deps=()
 
     for dep in "${deps[@]}"; do
@@ -20,9 +19,7 @@ check_dependencies() {
     done
 
     if [ ${#missing_deps[@]} -ne 0 ]; then
-        log "ERROR: Missing dependencies: ${missing_deps[*]}"
-        log "Please install them and rerun the script."
-        exit 1
+        log "INFO: Missing dependencies: ${missing_deps[*]}"
     fi
     log "All dependencies are installed!"
 }
@@ -40,8 +37,13 @@ download_file() {
     local url="$1"
     local output="$2"
     local description="$3"
-
     log "Downloading $description..."
+
+    if [ -f "$output" ]; then
+        log "$description already exists, skipping download."
+        return 0
+    fi
+
     if ! wget -q "$url" -O "$output"; then
         log "ERROR: Failed to download $description"
         return 1
@@ -55,9 +57,10 @@ main() {
     local directory="$HOME/.AffinityLinux"
     local repo="22-pacific/ElementalWarrior-wine-binaries"
     local filename="ElementalWarriorWine.zip"
+    local metadata_dir="$directory/drive_c/windows/system32"
 
-    # Check dependencies
-    check_dependencies
+    # Install/check dependencies
+    install_dependencies
 
     # Kill wine processes
     wineserver -k || log "Note: No wine processes were running"
@@ -102,17 +105,31 @@ main() {
     unzip -q "$directory/$filename" -d "$directory"
     rm "$directory/$filename"
 
+    # Set environment variables
+    export WINE="$directory/ElementalWarriorWine/bin/wine"
+    export WINESERVER="$directory/ElementalWarriorWine/bin/wineserver"
+    export WINEARCH="win64"
+    export WINEPREFIX="$directory"
+    export PATH="$directory/ElementalWarriorWine/bin:$PATH"
+
+    # Initialize Wine prefix
+    log "Initializing Wine prefix..."
+    "$directory/ElementalWarriorWine/bin/wineboot" --init
+
+    # Wait for wineserver to finish
+    "$directory/ElementalWarriorWine/bin/wineserver" -w
+
     # Extract WinMetadata
-    7z x "$directory/Winmetadata.zip" -o"$directory/drive_c/windows/system32"
-    rm "$directory/Winmetadata.zip"
+        7z x "$directory/Winmetadata.zip" -o"$metadata_dir"
+        rm "$directory/Winmetadata.zip"
 
     # WINETRICKS setup
     log "Configuring Wine environment..."
-    WINEPREFIX="$directory" winetricks --unattended dotnet35 dotnet48 corefonts
+    WINEPREFIX="$directory" winetricks --unattended dotnet48 corefonts
     WINEPREFIX="$directory" winetricks renderer=vulkan
 
     # Set Windows version
-    WINEPREFIX="$directory" "$directory/ElementalWarriorWine/bin/winecfg" -v win11
+    "$directory/ElementalWarriorWine/bin/winecfg" -v win11
 
     log "Setup completed successfully!"
 }
