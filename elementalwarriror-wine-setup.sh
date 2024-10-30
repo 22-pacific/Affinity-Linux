@@ -52,7 +52,7 @@ install_rum() {
 create_directory() {
     local dir="$1"
     if [ ! -d "$dir" ]; then
-        mkdir -p "$dir" || { log "ERROR: Failed to create directory $dir"; exit 1; }
+        sudo mkdir -p "$dir" || { log "ERROR: Failed to create directory $dir"; exit 1; }
     fi
 }
 
@@ -87,7 +87,7 @@ main() {
 
     # Create wines directory and set permissions
     log "Creating wines directory..."
-    sudo mkdir -p "$wines_dir"
+    create_directory "$wines_dir"
     sudo chown "$USER:$USER" "$wines_dir"
 
     # Fetch latest release information
@@ -106,15 +106,15 @@ main() {
     download_file "$download_url" "$wines_dir/$filename" "wine binaries"
 
     # Define the paths
-    wine_zip_path="/opt/wines/ElementalWarriorWine.zip"
-    temp_dir="/opt/wines/temp"
-    target_dir="/opt/wines/affinity-photo3-wine9.13-part3"
+    local wine_zip_path="$wines_dir/$filename"
+    local temp_dir="$wines_dir/temp"
+    local target_dir="$wines_dir/$wine_build_name"
 
     # Create the target directory if it doesn't exist
-    sudo mkdir -p "$target_dir"
+    create_directory "$target_dir"
 
     # Create a temporary directory for extraction
-    sudo mkdir -p "$temp_dir"
+    create_directory "$temp_dir"
 
     # Unzip the file to the temporary directory
     sudo unzip "$wine_zip_path" -d "$temp_dir"
@@ -130,7 +130,7 @@ main() {
 
     # Create wine64 symlink
     log "Creating wine64 symlink..."
-    sudo ln -sf "$wines_dir/$wine_build_name/bin/wine" "$wines_dir/$wine_build_name/bin/wine64"
+    sudo ln -sf "$target_dir/bin/wine" "$target_dir/bin/wine64"
 
     # Create wineprefix directory
     create_directory "$wineprefix"
