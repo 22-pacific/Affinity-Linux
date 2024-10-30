@@ -135,18 +135,18 @@ main() {
     # Create wineprefix directory
     create_directory "$wineprefix"
 
-    # Download WinMetadata
-    log "Downloading WinMetadata..."
-    download_file "https://archive.org/download/win-metadata/WinMetadata.zip" \
-                  "$wineprefix/WinMetadata.zip" \
-                  "WinMetadata"
-
     # Initialize wineprefix using rum
     log "Initializing wineprefix..."
     rum "$wine_build_name" "$wineprefix" wineboot --init
 
     # Wait for wineserver to finish
     sleep 5  # Give wineserver some time to complete initialization
+
+    # Download WinMetadata
+    log "Downloading WinMetadata..."
+    download_file "https://archive.org/download/win-metadata/WinMetadata.zip" \
+                  "$wineprefix/WinMetadata.zip" \
+                  "WinMetadata"
 
     # Install dependencies with winetricks
     log "Installing dependencies with winetricks..."
