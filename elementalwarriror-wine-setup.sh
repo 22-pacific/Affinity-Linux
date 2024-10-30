@@ -150,7 +150,7 @@ main() {
 
     # Install dependencies with winetricks
     log "Installing dependencies with winetricks..."
-    rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet40 dotnet48 corefonts
+    rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet48 corefonts
     rum "$wine_build_name" "$wineprefix" winetricks renderer=vulkan
 
     # Set Windows version to 11
@@ -158,7 +158,7 @@ main() {
     rum "$wine_build_name" "$wineprefix" wine winecfg -v win11
 
     # Extract WinMetadata files
-    log "Installing WinMetadata files..."
+    log "Extracting WinMetadata files..."
     create_directory "$wineprefix/drive_c/windows/system32/WinMetadata"
     unzip -q "$wineprefix/WinMetadata.zip" -d "$wineprefix/drive_c/windows/system32/WinMetadata"
     rm "$wineprefix/WinMetadata.zip"
