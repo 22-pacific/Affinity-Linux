@@ -135,6 +135,9 @@ main() {
     # Create wineprefix directory
     create_directory "$wineprefix"
 
+    # Ensure correct ownership of wineprefix directory
+    sudo chown -R "$USER:$USER" "$wineprefix"
+
     # Initialize wineprefix using rum
     log "Initializing wineprefix..."
     rum "$wine_build_name" "$wineprefix" wineboot --init
