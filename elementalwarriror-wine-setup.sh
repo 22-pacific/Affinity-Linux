@@ -150,7 +150,7 @@ main() {
 
     # Install dependencies with winetricks
     log "Installing dependencies with winetricks..."
-    rum "$wine_build_name" "$wineprefix" winetricks --unattended dotnet48 corefonts
+    rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet40 dotnet48 corefonts
     rum "$wine_build_name" "$wineprefix" winetricks renderer=vulkan
 
     # Set Windows version to 11
