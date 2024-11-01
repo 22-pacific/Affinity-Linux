@@ -183,6 +183,8 @@ main() {
     # Extract WinMetadata files
     log "Extracting WinMetadata files..."
     create_directory "$wineprefix/drive_c/windows/system32/WinMetadata"
+    # Ensure correct ownership before extraction
+    sudo chown -R "$USER:$USER" "$wineprefix/drive_c/windows/system32/WinMetadata"
     unzip -q "$wineprefix/WinMetadata.zip" -d "$wineprefix/drive_c/windows/system32/WinMetadata"
     rm "$wineprefix/WinMetadata.zip"
 
