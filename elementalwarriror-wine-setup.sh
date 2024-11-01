@@ -10,7 +10,7 @@ log() {
 
 # Function to check dependencies
 check_dependencies() {
-    local deps=("wget" "curl" "unzip" "jq" "git" "winetricks")
+    local deps=("wget" "curl" "7z" "jq" "git" "winetricks")
     local missing_deps=()
 
     for dep in "${deps[@]}"; do
@@ -119,17 +119,9 @@ main() {
     # Create the target directory if it doesn't exist
     create_directory "$target_dir"
 
-    # Create a temporary directory for extraction
-    create_directory "$temp_dir"
-
-    # Unzip the file to the temporary directory
-    sudo unzip "$wine_zip_path" -d "$temp_dir"
-
-    # Move the contents of the extracted directory to the target directory
-    sudo mv "$temp_dir/ElementalWarriorWine/"* "$target_dir/"
-
-    # Clean up the temporary directory
-    sudo rm -rf "$temp_dir"
+    # Extract directly to target directory
+    log "Extracting wine binaries..."
+    sudo 7z x "$wine_zip_path" -o"$target_dir" -y
 
     # Remove the original ZIP file after extraction
     sudo rm -f "$wine_zip_path"
@@ -142,10 +134,7 @@ main() {
     fi
 
     # Create wineprefix directory
-    create_directory "$wineprefix"
-
-    # Ensure correct ownership of wineprefix directory
-    sudo chown -R "$USER:$USER" "$wineprefix"
+    mkdir -p "$wineprefix"  # Simple mkdir is sufficient for home directory
 
     # Initialize wineprefix using rum
     log "Initializing wineprefix..."
@@ -182,10 +171,8 @@ main() {
 
     # Extract WinMetadata files
     log "Extracting WinMetadata files..."
-    create_directory "$wineprefix/drive_c/windows/system32/WinMetadata"
-    # Ensure correct ownership before extraction
-    sudo chown -R "$USER:$USER" "$wineprefix/drive_c/windows/system32/WinMetadata"
-    unzip -q "$wineprefix/WinMetadata.zip" -d "$wineprefix/drive_c/windows/system32/WinMetadata"
+    mkdir -p "$wineprefix/drive_c/windows/system32/WinMetadata"
+    7z x "$wineprefix/WinMetadata.zip" -o"$wineprefix/drive_c/windows/system32/WinMetadata" -y
     rm "$wineprefix/WinMetadata.zip"
 
     log "Setup completed successfully!"
