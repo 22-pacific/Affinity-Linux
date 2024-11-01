@@ -10,7 +10,7 @@ log() {
 
 # Function to check dependencies
 check_dependencies() {
-    local deps=("wget" "curl" "unzip" "jq" "git")
+    local deps=("wget" "curl" "unzip" "jq" "git" "winetricks")
     local missing_deps=()
 
     for dep in "${deps[@]}"; do
@@ -31,20 +31,25 @@ check_dependencies() {
 install_rum() {
     log "Installing rum..."
 
-    # Clone rum repository
-    if [ ! -d "$HOME/Documents/rum" ]; then
-        git clone https://gitlab.com/xkero/rum "$HOME/Documents/rum"
-    else
-        log "rum repository already exists, skipping clone..."
-    fi
+    if ! command -v rum &> /dev/null; then
+        # Clone rum repository
+        if [ ! -d "$HOME/Documents/rum" ]; then
+            git clone https://gitlab.com/xkero/rum "$HOME/Documents/rum"
+        else
+            log "rum repository already exists, skipping clone..."
+        fi
 
-    # Copy rum to /usr/local/bin
-    if [ ! -f "/usr/local/bin/rum" ]; then
-        sudo cp "$HOME/Documents/rum/rum" "/usr/local/bin/rum"
-        sudo chmod +x "/usr/local/bin/rum"
-        log "rum installed successfully!"
+        # Copy rum to /usr/local/bin
+        if [ ! -f "/usr/local/bin/rum" ]; then
+            sudo cp "$HOME/Documents/rum/rum" "/usr/local/bin/rum"
+            sudo chmod +x "/usr/local/bin/rum"
+            log "rum installed successfully!"
+        else
+            log "rum already installed in /usr/local/bin, skipping..."
+        fi
     else
-        log "rum already installed in /usr/local/bin, skipping..."
+        log "rum is already installed, skipping..."
+        return 0
     fi
 }
 
@@ -131,7 +136,10 @@ main() {
 
     # Create wine64 symlink
     log "Creating wine64 symlink..."
-    sudo ln -sf "$target_dir/bin/wine" "$target_dir/bin/wine64"
+    if ! sudo ln -sf "$target_dir/bin/wine" "$target_dir/bin/wine64"; then
+        log "ERROR: Failed to create wine64 symlink"
+        exit 1
+    fi
 
     # Create wineprefix directory
     create_directory "$wineprefix"
