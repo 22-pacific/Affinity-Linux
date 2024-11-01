@@ -67,6 +67,7 @@ download_file() {
         log "ERROR: Failed to download $description"
         return 1
     fi
+    log "Successfully downloaded $description"
     return 0
 }
 
@@ -143,18 +144,29 @@ main() {
     rum "$wine_build_name" "$wineprefix" wineboot --init
 
     # Wait for wineserver to finish
-    sleep 5  # Give wineserver some time to complete initialization
+    log "Waiting for wineserver to finish..."
+    wineserver -w
 
-    # Download WinMetadata
+    # Download WinMetadata with error handling
     log "Downloading WinMetadata..."
-    download_file "https://archive.org/download/win-metadata/WinMetadata.zip" \
-                  "$wineprefix/WinMetadata.zip" \
-                  "WinMetadata"
+    if ! download_file "https://archive.org/download/win-metadata/WinMetadata.zip" \
+                      "$wineprefix/WinMetadata.zip" \
+                      "WinMetadata"; then
+        log "ERROR: Failed to download WinMetadata"
+        exit 1
+    fi
 
-    # Install dependencies with winetricks
+    # Install dependencies with winetricks (add error handling)
     log "Installing dependencies with winetricks..."
-    rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet48 corefonts
-    rum "$wine_build_name" "$wineprefix" winetricks renderer=vulkan
+    if ! rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet48 corefonts; then
+        log "ERROR: Failed to install winetricks dependencies"
+        exit 1
+    fi
+    
+    if ! rum "$wine_build_name" "$wineprefix" winetricks renderer=vulkan; then
+        log "ERROR: Failed to set vulkan renderer"
+        exit 1
+    fi
 
     # Set Windows version to 11
     log "Setting Windows version to 11..."
