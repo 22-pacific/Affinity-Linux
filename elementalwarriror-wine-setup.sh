@@ -123,8 +123,10 @@ main() {
     log "Extracting wine binaries..."
     sudo 7z x "$wine_zip_path" -o"$target_dir" -y
 
-    # Remove the original ZIP file after extraction
-    sudo rm -f "$wine_zip_path"
+    # Move files from subdirectory to target directory
+    log "Moving files to correct location..."
+    sudo mv "$target_dir/ElementalWarriorWine"/* "$target_dir/"
+    sudo rmdir "$target_dir/ElementalWarriorWine"
 
     # Create wine64 symlink
     log "Creating wine64 symlink..."
