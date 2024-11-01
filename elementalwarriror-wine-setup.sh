@@ -175,6 +175,12 @@ main() {
     log "Extracting WinMetadata files..."
     mkdir -p "$wineprefix/drive_c/windows/system32/WinMetadata"
     7z x "$wineprefix/WinMetadata.zip" -o"$wineprefix/drive_c/windows/system32/WinMetadata" -y
+    
+    # Move files from subdirectory to correct location
+    mv "$wineprefix/drive_c/windows/system32/WinMetadata/WinMetadata"/* \
+       "$wineprefix/drive_c/windows/system32/WinMetadata/"
+    rmdir "$wineprefix/drive_c/windows/system32/WinMetadata/WinMetadata"
+    
     rm "$wineprefix/WinMetadata.zip"
 
     log "Setup completed successfully!"
