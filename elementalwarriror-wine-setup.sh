@@ -128,6 +128,10 @@ main() {
     sudo mv "$target_dir/ElementalWarriorWine"/* "$target_dir/"
     sudo rmdir "$target_dir/ElementalWarriorWine"
 
+    # Clean up the zip file
+    log "Cleaning up downloaded file..."
+    sudo rm -f "$wine_zip_path"
+
     # Create wine64 symlink
     log "Creating wine64 symlink..."
     if ! sudo ln -sf "$target_dir/bin/wine" "$target_dir/bin/wine64"; then
