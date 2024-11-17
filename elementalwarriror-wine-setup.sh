@@ -161,11 +161,11 @@ main() {
 
     # Install dependencies with winetricks (add error handling)
     log "Installing dependencies with winetricks..."
-    if ! rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet48 corefonts; then
+    if ! rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet48 allfonts; then
         log "ERROR: Failed to install winetricks dependencies"
         exit 1
     fi
-    
+
     if ! rum "$wine_build_name" "$wineprefix" winetricks renderer=vulkan; then
         log "ERROR: Failed to set vulkan renderer"
         exit 1
@@ -179,12 +179,12 @@ main() {
     log "Extracting WinMetadata files..."
     mkdir -p "$wineprefix/drive_c/windows/system32/WinMetadata"
     7z x "$wineprefix/WinMetadata.zip" -o"$wineprefix/drive_c/windows/system32/WinMetadata" -y
-    
+
     # Move files from subdirectory to correct location
     mv "$wineprefix/drive_c/windows/system32/WinMetadata/WinMetadata"/* \
        "$wineprefix/drive_c/windows/system32/WinMetadata/"
     rmdir "$wineprefix/drive_c/windows/system32/WinMetadata/WinMetadata"
-    
+
     rm "$wineprefix/WinMetadata.zip"
 
     log "Setup completed successfully!"
