@@ -45,10 +45,10 @@ and at the bottom
 Name it According to the Affinity app you are using
 
 in configuration, set the wineprefix to
- * $HOME/.AffinityLinux
+ * $HOME/.wineAffinity
 
  in configuration, set the wine-version to custom and add the custom wine executable to
- * $HOME/.AffinityLinux/ElementalWarriorWine/bin/wine
+ * $HOME/.wineAffinity/ElementalWarriorWine/bin/wine
 
 ## Selecting the Programs .exe According to what you Want to Install
 
