@@ -84,15 +84,11 @@ For example, on **Arch Linux** & **Nvidia**:
 sudo pacman -S opencl-nvidia
 ```
 
-## Installing VKD3D-Proton
-
-Download [VKD3D-Proton](https://github.com/HansKristian-Work/vkd3d-proton) for Lutris from [ProtonPlus](https://github.com/Vysp3r/ProtonPlus) or [Protonupqt](https://github.com/DavidoTek/ProtonUp-Qt)
-
 ## Configuring Lutris
 
 1. Open Lutris and go to the affinity app's configuration settings.
 2. Navigate to **Runner Options**.
-3. Select **vkd3d-proton** as the VKD3D version.
+3. Select **The latest VKD3D** as the VKD3D version.
 4. Disable **DXVK**.
 
 ## Launching Affinity Apps
