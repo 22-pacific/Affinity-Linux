@@ -10,10 +10,6 @@ For example, on **Arch Linux** & **Nvidia**:
 sudo pacman -S opencl-nvidia
 ```
 
-## Installing VKD3D-Proton
-
-Download [VKD3D-Proton](https://github.com/HansKristian-Work/vkd3d-proton) for Lutris from [ProtonPlus](https://github.com/Vysp3r/ProtonPlus) or [Protonupqt](https://github.com/DavidoTek/ProtonUp-Qt)
-
 ## Add Affinity apps to lutris
 
 *in configuration, set the wine-version to custom and add the custom wine executable to
