@@ -26,7 +26,7 @@ Download [VKD3D-Proton](https://github.com/HansKristian-Work/vkd3d-proton) for L
 
 1. Open Lutris and go to the affinity app's configuration settings.
 2. Navigate to **Runner Options**.
-3. Select **vkd3d-proton** as the VKD3D version.
+3. Select **the latest VKD3D* as the VKD3D version.
 4. Disable **DXVK**.
 
 ## Launching Affinity Apps
