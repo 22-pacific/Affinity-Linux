@@ -161,7 +161,7 @@ main() {
 
     # Install dependencies with winetricks (add error handling)
     log "Installing dependencies with winetricks..."
-    if ! rum "$wine_build_name" "$wineprefix" winetricks -q -f dotnet48 corefonts vcrun2022; then
+    if ! rum "$wine_build_name" "$wineprefix" winetricks --unattended dotnet48 corefonts vcrun2022; then
         log "ERROR: Failed to install winetricks dependencies"
         exit 1
     fi
