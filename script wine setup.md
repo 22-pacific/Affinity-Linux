@@ -1,6 +1,6 @@
 ## Setting up elementalwarrior's wine fork with the script
 ```
-curl -sSL https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/elementalwarriror-wine-setup.sh | bash
+curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/elementalwarriror-wine-setup.sh | bash
 ```
 (the script will take some time please wait until its done)
 
