@@ -28,6 +28,19 @@ curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/element
 ```
 curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/affinity-plugin-loader.sh | bash
 ```
+AffinityPluginLoader (Recommended Method)
+
+### Install Affinity Plugin Loader + WineFix  
+> **Author:** [Noah C3](https://github.com/noahc3)  
+> **Project:** [AffinityPluginLoader + WineFix](https://github.com/noahc3/AffinityPluginLoader/)  
+> *This patch is community‑made and **not official**, but it greatly improves runtime stability and fixes the “Preferences not saving” issue on Linux.*
+
+### Purpose
+- Provides plugin loading and dynamic patch injection via **Harmony**  
+- Restores **on‑the‑fly settings saving** under Wine  
+- Temporarily skips the Canva sign‑in dialog (until the browser redirect fix is ready)
+
+---
 
 ## [Wine setup Script and Installation](https://github.com/22-pacific/Affinity-Linux/blob/main/script%20wine%20setup.md)
 
