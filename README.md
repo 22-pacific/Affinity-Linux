@@ -11,6 +11,24 @@ This guide helps Installing and running Affinity apps on linux as very usable st
 
 (Note: Affinity software version 1.10.4 and later releases require .winmd files from an existing Windows 10+ install.)
 
+## Setting up affinity v3 with script
+```
+curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/affinity-setup.sh | bash
+```
+
+## Setting up only elementalwarrior's wine fork with the script
+```
+curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/elementalwarriror-wine-setup.sh | bash
+```
+(the script will take some time please wait until its done)
+
+*After the script is done, you can install Affinity apps by using lutris
+
+## Setting up affinity plugin loader for fixing settings saving and wine fixes
+```
+curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/affinity-plugin-loader.sh | bash
+```
+
 ## [Wine setup Script and Installation](https://github.com/22-pacific/Affinity-Linux/blob/main/script%20wine%20setup.md)
 
 ## [Manual Guide Installation](https://github.com/22-pacific/Affinity-Linux/blob/main/Manual%20Guide.md)

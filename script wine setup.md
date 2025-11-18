@@ -1,10 +1,20 @@
-## Setting up elementalwarrior's wine fork with the script
+## Setting up affinity v3 with script
+```
+curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/affinity-setup.sh | bash
+```
+
+## Setting up only elementalwarrior's wine fork with the script
 ```
 curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/elementalwarriror-wine-setup.sh | bash
 ```
 (the script will take some time please wait until its done)
 
 *After the script is done, you can install Affinity apps by using lutris
+
+## Setting up affinity plugin loader for fixing settings saving and wine fixes
+```
+curl -L https://raw.githubusercontent.com/22-pacific/Affinity-Linux/main/affinity-plugin-loader.sh | bash
+```
 
 ## Installing Lutris
 ## Fedora
@@ -23,16 +33,6 @@ sudo pacman -S lutris
 sudo apt install lutris
 ```
 
-## Downloading Affinity
-
-[Affinity Designer](https://store.serif.com/update/windows/designer/2/)
-
-[Affinity Photo](https://store.serif.com/update/windows/photo/2/)
-
-[Affinity Publisher](https://store.serif.com/update/windows/publisher/2/)
-
-From the Drop down Choose the exe
-
 ## Settings Up Lutris For Affinity
 Open up lutris and then click on
 
@@ -42,33 +42,13 @@ and at the bottom
 
 * Add Locally Install Game
 
-Name it According to the Affinity app you are using
+Name it 
 
 in configuration, set the wineprefix to
  * $HOME/.wineAffinity
 
  in configuration, set the wine-version to custom and add the custom wine executable to
- * $HOME/.wineAffinity/ElementalWarriorWine/bin/wine
-
-## Selecting the Programs .exe According to what you Want to Install
-
- Select the setup .exe you've downloaded from affinity's website as the executable
-
- Click Finish
-
-
-## Running Affinity Setup and Installing Photo/Designer/Publisher
-
- Press launch and the setup should work
-
- Once its done installing right click to affinity on lutris and go to configure
- * Game options
-
- Next Change the executable to
-
- * drive_c/Program Files/Affinity/Photo 2/Photo.exe
- * drive_c/Program Files/Affinity/Designer 2/Designer.exe
- * drive_c/Program Files/Affinity/Publisher 2/Publisher.exe
+ * /opt/wines/affinity-photo3-wine9.13-part3/bin/wine
 
  Click save & launch it.
 
@@ -90,7 +70,5 @@ sudo pacman -S opencl-nvidia
 2. Navigate to **Runner Options**.
 3. Select **The latest VKD3D** as the VKD3D version.
 4. Disable **DXVK**.
-
-## Launching Affinity Apps
 
 Run the Affinity apps and verify OpenCL is working by checking the preferences for hardware acceleration.
